@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nike/data/model/product_model.dart';
-import 'package:nike/pages/home.dart';
+import 'package:nike/data/repo/baner_repository.dart';
+import 'package:nike/ui/home.dart';
 import 'package:nike/theme.dart';
 
 import 'data/repo/product_repository.dart';
@@ -15,6 +16,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     productRepository.getAll(ProductSort.latest).then((value) {
+      debugPrint(value.toString());
+    }).catchError((e) {
+      debugPrint(e.toString());
+    });
+
+    bannerRepository.getall().then((value) {
       debugPrint(value.toString());
     }).catchError((e) {
       debugPrint(e.toString());
@@ -38,6 +45,6 @@ class MyApp extends StatelessWidget {
           ),
         ),
         home: const Directionality(
-            textDirection: TextDirection.rtl, child: HomePage()));
+            textDirection: TextDirection.rtl, child: HomeScrean()));
   }
 }

@@ -20,9 +20,9 @@ class ProductRemoteDataSource
     final respone = await httpClint.get('product/list?sort=$sort');
     validateResponse(respone);
     final products = <ProductEntity>[];
-    (respone.data as List).forEach((element) {
+    for (var element in (respone.data as List)) {
       products.add(ProductEntity.fromJson(element));
-    });
+    }
     return products;
   }
 
@@ -32,9 +32,9 @@ class ProductRemoteDataSource
     validateResponse(respone);
     final products = <ProductEntity>[];
 
-    (respone.data as List).forEach((element) {
+    for (var element in (respone.data as List)) {
       products.add(ProductEntity.fromJson(element));
-    });
+    }
     return products;
   }
 }
