@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nike/data/model/product_model.dart';
 import 'package:nike/data/repo/baner_repository.dart';
-import 'package:nike/ui/home.dart';
+
 import 'package:nike/theme.dart';
+import 'package:nike/ui/home/home.dart';
 
 import 'data/repo/product_repository.dart';
 

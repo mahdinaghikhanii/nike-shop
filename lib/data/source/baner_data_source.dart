@@ -18,9 +18,9 @@ class BanerRemoteDataSource
 
     var banner = <BannerEntity>[];
 
-    (respone.data as List).forEach((jsonObject) {
+    for (var jsonObject in (respone.data as List)) {
       banner.add(BannerEntity.fromJson(jsonObject));
-    });
+    }
     return banner;
   }
 }
