@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../common/utils.dart';
 import 'image.dart';
 
 import '../../data/model/baner_model.dart';
@@ -18,6 +19,7 @@ class BannerSlider extends StatelessWidget {
             PageView.builder(
                 controller: _pageController,
                 itemCount: banners.length,
+                physics: defaultScrollPhysics,
                 itemBuilder: ((context, index) {
                   return _Slide(banner: banners[index]);
                 })),
@@ -30,10 +32,10 @@ class BannerSlider extends StatelessWidget {
                   controller: _pageController,
                   count: banners.length,
                   axisDirection: Axis.horizontal,
-                  effect: SlideEffect(
+                  effect: WormEffect(
                       spacing: 4.0,
                       radius: 4.0,
-                      dotWidth: 18.0,
+                      dotWidth: 20.0,
                       dotHeight: 3.0,
                       paintStyle: PaintingStyle.fill,
                       strokeWidth: 1.5,
