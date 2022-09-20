@@ -1,6 +1,6 @@
-import 'package:nike/data/common/http_client.dart';
-import 'package:nike/data/model/product_model.dart';
-import 'package:nike/data/source/product_data_source.dart';
+import '../common/http_client.dart';
+import '../model/product_model.dart';
+import '../source/product_data_source.dart';
 
 final productRepository = ProductRepository(ProductRemoteDataSource(httpClint));
 

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:nike/common/exceptions.dart';
+import '../../common/exceptions.dart';
 
 mixin HttpResponseValidator {
   validateResponse(Response response) {

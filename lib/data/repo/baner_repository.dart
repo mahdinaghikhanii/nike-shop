@@ -1,5 +1,5 @@
-import 'package:nike/data/common/http_client.dart';
-import 'package:nike/data/model/baner_model.dart';
+import '../common/http_client.dart';
+import '../model/baner_model.dart';
 
 import '../source/baner_data_source.dart';
 

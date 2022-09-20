@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import 'package:nike/data/common/http_response_validator.dart';
+import '../common/http_response_validator.dart';
 
 import '../model/product_model.dart';
 

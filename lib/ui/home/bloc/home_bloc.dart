@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:nike/common/exceptions.dart';
-import 'package:nike/data/model/baner_model.dart';
-import 'package:nike/data/model/product_model.dart';
-import 'package:nike/data/repo/baner_repository.dart';
-import 'package:nike/data/repo/product_repository.dart';
+import '../../../common/exceptions.dart';
+import '../../../data/model/baner_model.dart';
+import '../../../data/model/product_model.dart';
+import '../../../data/repo/baner_repository.dart';
+import '../../../data/repo/product_repository.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
