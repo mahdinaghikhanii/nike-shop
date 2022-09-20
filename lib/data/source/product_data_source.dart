@@ -24,8 +24,15 @@ class ProductRemoteDataSource implements IProductDataSource {
   }
 
   @override
-  Future<List<ProductEntity>> search(String searchTerm) {
-    throw UnimplementedError();
+  Future<List<ProductEntity>> search(String searchTerm) async {
+    final respone = await httpClint.get("product/search?q=$searchTerm");
+    validateResponse(respone);
+    final products = <ProductEntity>[];
+
+    (respone.data as List).forEach((element) {
+      products.add(ProductEntity.fromJson(element));
+    });
+    return products;
   }
 
   validateResponse(Response response) {

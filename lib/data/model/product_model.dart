@@ -1,3 +1,10 @@
+class ProductSort {
+  static const int latest = 0;
+  static const int popular = 1;
+  static const int priceHeightLow = 2;
+  static const int proceLowTohight = 3;
+}
+
 class ProductEntity {
   int? id;
   String? title;
