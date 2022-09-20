@@ -1,9 +1,7 @@
-import 'package:dio/dio.dart';
+import 'package:nike/data/common/http_client.dart';
 import 'package:nike/data/model/product_model.dart';
 import 'package:nike/data/source/product_data_source.dart';
 
-final httpClint =
-    Dio(BaseOptions(baseUrl: "http://expertdevelopers.ir/api/v1/"));
 final productRepository = ProductRepository(ProductRemoteDataSource(httpClint));
 
 abstract class IProductRepository {
