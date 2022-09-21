@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    productRepository.getAll(ProductSort.latest).then((value) {
+    /*  productRepository.getAll(ProductSort.latest).then((value) {
       debugPrint(value.toString());
     }).catchError((e) {
       debugPrint(e.toString());
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       debugPrint(value.toString());
     }).catchError((e) {
       debugPrint(e.toString());
-    });
+    });*/
 
     const defualtTextStyle = TextStyle(fontFamily: "IranYekan");
     return MaterialApp(
