@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nike/common/utils.dart';
-import 'package:nike/data/model/product_model.dart';
+import 'package:nike/data/entity/product_model.dart';
 import 'package:nike/ui/product/details.dart';
 import 'package:nike/ui/widgets/image.dart';
 

@@ -3,7 +3,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../common/utils.dart';
 import 'image.dart';
 
-import '../../data/model/baner_model.dart';
+import '../../data/entity/baner_model.dart';
 
 class BannerSlider extends StatelessWidget {
   final PageController _pageController = PageController();

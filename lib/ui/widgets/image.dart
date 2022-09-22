@@ -16,7 +16,7 @@ class ImageLoadingService extends StatelessWidget {
     );
     if (borderRadius != null) {
       return ClipRRect(
-          borderRadius: borderRadius ?? null,
+          borderRadius: borderRadius,
           child: CachedNetworkImage(
             imageUrl: imgUrl,
             fit: BoxFit.cover,

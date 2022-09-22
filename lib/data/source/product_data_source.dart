@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../common/http_response_validator.dart';
 
-import '../model/product_model.dart';
+import '../entity/product_model.dart';
 
 abstract class IProductDataSource {
   Future<List<ProductEntity>> getAll(int sort);

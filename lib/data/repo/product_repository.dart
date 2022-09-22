@@ -1,5 +1,5 @@
 import '../../common/http_client.dart';
-import '../model/product_model.dart';
+import '../entity/product_model.dart';
 import '../source/product_data_source.dart';
 
 final productRepository = ProductRepository(ProductRemoteDataSource(httpClint));

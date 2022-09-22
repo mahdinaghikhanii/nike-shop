@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/exceptions.dart';
-import '../../../data/model/baner_model.dart';
-import '../../../data/model/product_model.dart';
+import '../../../data/entity/baner_model.dart';
+import '../../../data/entity/product_model.dart';
 import '../../../data/repo/baner_repository.dart';
 import '../../../data/repo/product_repository.dart';
 

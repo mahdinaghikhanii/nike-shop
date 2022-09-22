@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import '../common/http_response_validator.dart';
-import '../model/baner_model.dart';
+import '../entity/baner_model.dart';
 
 abstract class IBanerDataSeource {
   Future<List<BannerEntity>> getall();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nike/common/utils.dart';
-import 'package:nike/data/model/product_model.dart';
+import 'package:nike/data/entity/product_model.dart';
 
 import '../../data/repo/baner_repository.dart';
 import '../../data/repo/product_repository.dart';
@@ -26,6 +26,7 @@ class HomeScrean extends StatelessWidget {
             builder: (context, state) {
               if (state is HomeSuccess) {
                 return ListView.builder(
+                    physics: defaultScrollPhysics,
                     itemCount: 5,
                     itemBuilder: (context, index) {
                       switch (index) {
