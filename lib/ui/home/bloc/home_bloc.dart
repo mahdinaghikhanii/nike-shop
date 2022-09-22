@@ -27,8 +27,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
           emit(HomeSuccess(
               banners: banners,
-              products: latesProducts,
-              popularProducts: popularProducts));
+              popularProducts: popularProducts,
+              latestproducts: latesProducts));
         } catch (e) {
           emit(HomeError(exception: e is AppException ? e : AppException()));
         }
