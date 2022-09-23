@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nike/common/exceptions.dart';
 import 'package:nike/common/utils.dart';
 import 'package:nike/data/entity/product_model.dart';
 
@@ -61,18 +62,10 @@ class HomeScrean extends StatelessWidget {
               } else if (state is HomeLoading) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is HomeError) {
-                return Center(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(state.exception.message),
-                    ElevatedButton(
-                        onPressed: () {
-                          BlocProvider.of<HomeBloc>(context).add(HomeRefresh());
-                        },
-                        child: const Text("Reafresh "))
-                  ],
-                ));
+                return AppErrorWidget(
+                    appException: state.exception,
+                    ontap: () =>
+                        BlocProvider.of<HomeBloc>(context).add(HomeRefresh()));
               } else {
                 throw Exception("state is not supported");
               }
@@ -81,6 +74,25 @@ class HomeScrean extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class AppErrorWidget extends StatelessWidget {
+  final AppException appException;
+  final VoidCallback ontap;
+  const AppErrorWidget(
+      {super.key, required this.appException, required this.ontap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(appException.message),
+        ElevatedButton(onPressed: ontap, child: const Text("Reafresh "))
+      ],
+    ));
   }
 }
 

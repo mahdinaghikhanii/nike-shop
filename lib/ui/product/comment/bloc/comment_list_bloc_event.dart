@@ -8,3 +8,5 @@ abstract class CommentListBlocEvent extends Equatable {
 }
 
 class CommentListStarted extends CommentListBlocEvent {}
+
+class CommentRefeash extends CommentListBlocEvent {}

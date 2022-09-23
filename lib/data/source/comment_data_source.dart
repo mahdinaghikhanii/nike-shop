@@ -16,7 +16,7 @@ class CommentDataSource
     final respone = await httpClint.get('comment/list?product_id=9');
     validateResponse(respone);
     final List<CommentEntity> comment = [];
-    for (var jsonData in (respone as List)) {
+    for (var jsonData in (respone.data as List)) {
       comment.add(CommentEntity.fromJson(jsonData));
     }
     return comment;

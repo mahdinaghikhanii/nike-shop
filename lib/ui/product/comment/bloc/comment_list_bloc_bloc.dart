@@ -8,16 +8,19 @@ import 'package:nike/data/repo/comment_repository.dart';
 part 'comment_list_bloc_event.dart';
 part 'comment_list_bloc_state.dart';
 
-class CommentListBlocBloc
-    extends Bloc<CommentListBlocEvent, CommentListBlocState> {
+class CommentListBloc extends Bloc<CommentListBlocEvent, CommentListBlocState> {
   final ICommentRepository repository;
   final int productId;
-  CommentListBlocBloc(this.repository, this.productId)
+  CommentListBloc({required this.repository, required this.productId})
       : super(CommentListLoadign()) {
     on<CommentListBlocEvent>((event, emit) async {
       if (event is CommentListStarted) {
-        try {} catch (e) {
-          await repository.getAll(productId: productId);
+        try {
+          emit(CommentListLoadign());
+          final comment = await repository.getAll(productId: productId);
+          emit(CommentListSucces(comment));
+        } catch (e) {
+          emit(CommentListError(AppException()));
         }
       }
     });

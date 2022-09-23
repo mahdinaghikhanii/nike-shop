@@ -1,16 +1,42 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nike/data/repo/comment_repository.dart';
+import 'package:nike/ui/home/home.dart';
 import 'package:nike/ui/product/comment/bloc/comment_list_bloc_bloc.dart';
+import 'package:nike/ui/product/comment/comment.dart';
 
 class CommnetList extends StatelessWidget {
-  const CommnetList({super.key});
+  final int productid;
+  const CommnetList({super.key, required this.productid});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(create: (context) {
-      final CommentListBlocBloc bloc = CommentListBlocBloc();
+      final CommentListBloc bloc =
+          CommentListBloc(repository: commentRepository, productId: productid);
+      bloc.add(CommentListStarted());
       return bloc;
-    });
+    }, child: BlocBuilder<CommentListBloc, CommentListBlocState>(
+        builder: ((context, state) {
+      if (state is CommentListSucces) {
+        return SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+          return CommentIteam(comment: state.comments[index]);
+        }, childCount: state.comments.length));
+      } else if (state is CommentListLoadign) {
+        return const SliverToBoxAdapter(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      } else if (state is CommentListError) {
+        return AppErrorWidget(
+            appException: state.exception,
+            ontap: () => BlocProvider.of<CommentListBloc>(context)
+                .add(CommentListStarted()));
+      } else {
+        throw "we have problems here developer !";
+      }
+    })));
   }
 }
