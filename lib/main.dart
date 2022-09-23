@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nike/ui/auth/auth.dart';
-import 'package:nike/ui/root.dart';
 
 import 'theme.dart';
 
