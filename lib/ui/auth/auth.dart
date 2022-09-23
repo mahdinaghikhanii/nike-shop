@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nike/data/repo/auth_repository.dart';
 
 class AuthScrean extends StatefulWidget {
   const AuthScrean({super.key});
@@ -62,7 +63,14 @@ class _AuthScreanState extends State<AuthScrean> {
               const _PasswordTextField(onBackground: onBackground),
               const SizedBox(height: 16),
               ElevatedButton(
-                  onPressed: () {}, child: Text(isLogin ? 'ورود' : 'ثبت نام')),
+                  onPressed: () {
+                    try {
+                      authRepository.login("mahdi77@gmail.com", "mahdi1379");
+                    } catch (e) {
+                      debugPrint(e.toString());
+                    }
+                  },
+                  child: Text(isLogin ? 'ورود' : 'ثبت نام')),
               const SizedBox(height: 24),
               GestureDetector(
                 onTap: () {

@@ -5,7 +5,7 @@ import 'package:nike/data/entity/auth_info.dart';
 
 abstract class IAuthDataSource {
   Future<AuthInfo> login(String username, String password);
-  Future<AuthInfo> register(String username, String password);
+  Future<AuthInfo> signUp(String username, String password);
   Future<AuthInfo> refreshToken(String token);
 }
 
@@ -25,7 +25,7 @@ class AuthRemoteDataSource
     });
     validateResponse(respone);
     return AuthInfo(
-        respone.data["access_tokeb"], respone.data["refresh_token"]);
+        respone.data["access_token"], respone.data["refresh_token"]);
   }
 
   @override
@@ -34,7 +34,11 @@ class AuthRemoteDataSource
   }
 
   @override
-  Future<AuthInfo> register(String username, String password) {
-    throw UnimplementedError();
+  Future<AuthInfo> signUp(String username, String password) async {
+    final respone = await httpClient
+        .post('user/register', data: {"email": username, "password": password});
+    validateResponse(respone);
+
+    return login(username, password);
   }
 }
