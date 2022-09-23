@@ -6,3 +6,5 @@ abstract class CommentListBlocEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class CommentListStarted extends CommentListBlocEvent {}
