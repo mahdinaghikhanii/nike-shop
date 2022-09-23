@@ -17,16 +17,6 @@ class _RootScreanState extends State<RootScrean> {
   int selectedScreenIndex = homeIndex;
   final List<int> _history = [];
 
-  final GlobalKey<NavigatorState> _homeKey = GlobalKey();
-  final GlobalKey<NavigatorState> _cartKey = GlobalKey();
-  final GlobalKey<NavigatorState> _profileKey = GlobalKey();
-
-  late final map = {
-    homeIndex: _homeKey,
-    cartIndex: _cartKey,
-    profileIndex: _profileKey,
-  };
-
   Future<bool> _onWillPop() async {
     final NavigatorState currentSelectedTabNavigatorState =
         map[selectedScreenIndex]!.currentState!;
