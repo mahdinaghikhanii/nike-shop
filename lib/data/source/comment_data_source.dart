@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:nike/data/common/http_response_validator.dart';
-import 'package:nike/data/entity/comment.dart';
+import '../common/http_response_validator.dart';
+import '../entity/comment.dart';
 
 abstract class IcommentRemoteDataSource {
   Future<List<CommentEntity>> getAll({required int productId});

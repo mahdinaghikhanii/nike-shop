@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nike/data/entity/comment.dart';
+import '../../../data/entity/comment.dart';
 
 class CommentIteam extends StatelessWidget {
   final CommentEntity comment;

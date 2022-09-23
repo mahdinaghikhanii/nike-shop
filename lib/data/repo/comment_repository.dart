@@ -1,6 +1,6 @@
-import 'package:nike/common/http_client.dart';
-import 'package:nike/data/entity/comment.dart';
-import 'package:nike/data/source/comment_data_source.dart';
+import '../../common/http_client.dart';
+import '../entity/comment.dart';
+import '../source/comment_data_source.dart';
 
 final commentRepository = CommentRepository(CommentDataSource(httpClint));
 

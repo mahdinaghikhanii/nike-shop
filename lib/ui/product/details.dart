@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nike/common/utils.dart';
-import 'package:nike/data/entity/product_model.dart';
-import 'package:nike/theme.dart';
-import 'package:nike/ui/product/comment/comment_list.dart';
-import 'package:nike/ui/widgets/image.dart';
+import '../../common/utils.dart';
+import '../../data/entity/product_model.dart';
+import '../../theme.dart';
+import 'comment/comment_list.dart';
+import '../widgets/image.dart';
 
 class ProductDetailscreen extends StatelessWidget {
   final ProductEntity productEntity;

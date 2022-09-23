@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nike/common/utils.dart';
-import 'package:nike/data/entity/product_model.dart';
-import 'package:nike/ui/product/details.dart';
-import 'package:nike/ui/widgets/image.dart';
+import '../../common/utils.dart';
+import '../../data/entity/product_model.dart';
+import 'details.dart';
+import '../widgets/image.dart';
 
 class ProductIteam extends StatelessWidget {
   final ProductEntity product;

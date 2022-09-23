@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nike/data/repo/comment_repository.dart';
-import 'package:nike/ui/home/home.dart';
-import 'package:nike/ui/product/comment/bloc/comment_list_bloc_bloc.dart';
-import 'package:nike/ui/product/comment/comment.dart';
+
+import '../../../data/repo/comment_repository.dart';
+import '../../widgets/error.dart';
+import 'bloc/comment_list_bloc_bloc.dart';
+import 'comment.dart';
 
 class CommnetList extends StatelessWidget {
   final int productid;

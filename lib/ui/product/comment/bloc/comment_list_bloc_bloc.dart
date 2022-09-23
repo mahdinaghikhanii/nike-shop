@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nike/common/exceptions.dart';
-import 'package:nike/data/entity/comment.dart';
-import 'package:nike/data/repo/comment_repository.dart';
+import '../../../../common/exceptions.dart';
+import '../../../../data/entity/comment.dart';
+import '../../../../data/repo/comment_repository.dart';
 
 part 'comment_list_bloc_event.dart';
 part 'comment_list_bloc_state.dart';
