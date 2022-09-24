@@ -65,7 +65,7 @@ class _AuthScreanState extends State<AuthScrean> {
               ElevatedButton(
                   onPressed: () {
                     try {
-                      authRepository.login("mahdi77@gmail.com", "mahdi1379");
+                      authRepository.signUp("mahdi787@gmail.com", "mahdi1379");
                     } catch (e) {
                       debugPrint(e.toString());
                     }
@@ -113,7 +113,7 @@ class _PasswordTextField extends StatefulWidget {
 }
 
 class _PasswordTextFieldState extends State<_PasswordTextField> {
-  bool obsecureText = true;
+  bool obsecureText = false;
   @override
   Widget build(BuildContext context) {
     return TextField(

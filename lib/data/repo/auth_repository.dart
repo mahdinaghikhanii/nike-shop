@@ -8,6 +8,7 @@ final authRepository = AuthRepository(AuthRemoteDataSource(httpClint));
 abstract class IAuthRepository {
   Future<void> login(String username, String password);
   Future<void> signUp(String username, String password);
+  Future<void> refReshToken();
 }
 
 class AuthRepository implements IAuthRepository {
@@ -27,5 +28,10 @@ class AuthRepository implements IAuthRepository {
     } catch (e) {
       debugPrint(e.toString());
     }
+  }
+
+  @override
+  Future<void> refReshToken() {
+    return dataSource.refreshToken("s");
   }
 }
