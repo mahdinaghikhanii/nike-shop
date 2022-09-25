@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:nike/data/repo/auth_repository.dart';
-import 'package:nike/ui/auth/auth.dart';
+import '../../data/repo/auth_repository.dart';
+import '../auth/auth.dart';
 
 class CartScrean extends StatelessWidget {
   const CartScrean({super.key});

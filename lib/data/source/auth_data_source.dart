@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:nike/data/common/constans.dart';
-import 'package:nike/data/common/http_response_validator.dart';
-import 'package:nike/data/entity/auth_info.dart';
+import '../common/constans.dart';
+import '../common/http_response_validator.dart';
+import '../entity/auth_info.dart';
 
 abstract class IAuthDataSource {
   Future<AuthInfo> login(String username, String password);

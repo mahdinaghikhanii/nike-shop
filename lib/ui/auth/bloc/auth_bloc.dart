@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nike/common/exceptions.dart';
-import 'package:nike/data/repo/auth_repository.dart';
+import '../../../common/exceptions.dart';
+import '../../../data/repo/auth_repository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

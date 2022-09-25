@@ -1,6 +1,5 @@
 import '../../common/http_client.dart';
 import '../entity/baner_model.dart';
-
 import '../source/baner_data_source.dart';
 
 final bannerRepository = BanerRepository(BanerRemoteDataSource(httpClint));

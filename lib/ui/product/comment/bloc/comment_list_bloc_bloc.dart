@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../common/exceptions.dart';
 import '../../../../data/entity/comment.dart';
 import '../../../../data/repo/comment_repository.dart';

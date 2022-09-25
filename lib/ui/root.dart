@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nike/ui/cart/cart.dart';
-import 'package:nike/ui/home/home.dart';
+import 'cart/cart.dart';
+import 'home/home.dart';
 
 const int homeIndex = 0;
 const int cartIndex = 1;

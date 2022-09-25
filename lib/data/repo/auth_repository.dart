@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nike/common/http_client.dart';
-import 'package:nike/data/entity/auth_info.dart';
-import 'package:nike/data/source/auth_data_source.dart';
+import '../../common/http_client.dart';
+import '../entity/auth_info.dart';
+import '../source/auth_data_source.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final authRepository = AuthRepository(AuthRemoteDataSource(httpClint));

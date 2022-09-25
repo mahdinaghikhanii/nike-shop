@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nike/data/repo/auth_repository.dart';
-import 'package:nike/ui/auth/auth.dart';
-import 'package:nike/ui/root.dart';
+import 'data/repo/auth_repository.dart';
+import 'ui/auth/auth.dart';
+import 'ui/root.dart';
 
 import 'theme.dart';
 
