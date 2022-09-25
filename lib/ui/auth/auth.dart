@@ -10,6 +10,10 @@ class AuthScrean extends StatefulWidget {
 
 class _AuthScreanState extends State<AuthScrean> {
   bool isLogin = true;
+  TextEditingController usernameController =
+      TextEditingController(text: "mahdinkh7@gmail.com");
+  TextEditingController passwordController =
+      TextEditingController(text: "mahdi3053");
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
@@ -56,19 +60,19 @@ class _AuthScreanState extends State<AuthScrean> {
                       : 'ایمیل و رمز عبور خود را تعیین کنید',
                   style: const TextStyle(color: onBackground, fontSize: 16)),
               const SizedBox(height: 24),
-              const TextField(
+              TextField(
+                  controller: usernameController,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(label: Text('ادرس ایمیل   '))),
+                  decoration:
+                      const InputDecoration(label: Text('ادرس ایمیل   '))),
               const SizedBox(height: 16),
-              const _PasswordTextField(onBackground: onBackground),
+              _PasswordTextField(
+                  onBackground: onBackground, controller: passwordController),
               const SizedBox(height: 16),
               ElevatedButton(
                   onPressed: () {
-                    try {
-                      authRepository.signUp("mahdi787@gmail.com", "mahdi1379");
-                    } catch (e) {
-                      debugPrint(e.toString());
-                    }
+                    authRepository.signUp(
+                        usernameController.text, passwordController.text);
                   },
                   child: Text(isLogin ? 'ورود' : 'ثبت نام')),
               const SizedBox(height: 24),
@@ -104,9 +108,11 @@ class _AuthScreanState extends State<AuthScrean> {
 }
 
 class _PasswordTextField extends StatefulWidget {
-  const _PasswordTextField({required this.onBackground});
+  const _PasswordTextField(
+      {required this.onBackground, required this.controller});
 
   final Color onBackground;
+  final TextEditingController controller;
 
   @override
   State<_PasswordTextField> createState() => _PasswordTextFieldState();
@@ -117,6 +123,7 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+        controller: widget.controller,
         keyboardType: TextInputType.visiblePassword,
         obscureText: obsecureText,
         decoration: InputDecoration(
