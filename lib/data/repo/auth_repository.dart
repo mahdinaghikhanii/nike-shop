@@ -10,6 +10,7 @@ abstract class IAuthRepository {
   Future<void> login(String username, String password);
   Future<void> signUp(String username, String password);
   Future<void> refReshToken();
+  Future<void> signOut();
 }
 
 class AuthRepository implements IAuthRepository {
@@ -28,26 +29,26 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<void> signUp(String username, String password) async {
-    try {
-      final AuthInfo authInfo = await dataSource.signUp(username, password);
-      _persisAuthTokens(authInfo);
-      debugPrint(authInfo.accessToken);
-    } catch (e) {
-      debugPrint(e.toString());
-    }
+    final AuthInfo authInfo = await dataSource.signUp(username, password);
+    _persisAuthTokens(authInfo);
+    debugPrint(authInfo.accessToken);
   }
 
   @override
   Future<void> refReshToken() async {
-    final AuthInfo authInfo = await dataSource.refreshToken(
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjAyYmE1NjVmNGZlYWVmNmIzMDQwZmE3NmU4ZTVlZjQzZTg1YjdkYjM3ZDFjMzBkNDEzM2ViNDFiYjk4N2Zk…");
-    _persisAuthTokens(authInfo);
+    if (authChangeNotifier.value != null) {
+      final AuthInfo authInfo =
+          await dataSource.refreshToken(authChangeNotifier.value!.refreshToken);
+      debugPrint("refresh token is : ${authInfo.refreshToken}");
+      _persisAuthTokens(authInfo);
+    }
   }
 
   Future<void> _persisAuthTokens(AuthInfo authInfo) async {
     final sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString("acces_token", authInfo.accessToken);
     sharedPreferences.setString("refresh_token", authInfo.refreshToken);
+    laodAuthInfo();
   }
 
   Future<void> laodAuthInfo() async {
@@ -59,5 +60,12 @@ class AuthRepository implements IAuthRepository {
     if (accessToken.isNotEmpty && refreashToken.isNotEmpty) {
       authChangeNotifier.value = AuthInfo(accessToken, refreashToken);
     }
+  }
+
+  @override
+  Future<void> signOut() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.clear();
+    authChangeNotifier.value = null;
   }
 }

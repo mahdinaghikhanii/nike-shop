@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nike/data/repo/auth_repository.dart';
 import 'package:nike/ui/auth/auth.dart';
+import 'package:nike/ui/root.dart';
 
 import 'theme.dart';
 
@@ -37,6 +38,6 @@ class MyApp extends StatelessWidget {
           ),
         ),
         home: const Directionality(
-            textDirection: TextDirection.rtl, child: AuthScrean()));
+            textDirection: TextDirection.rtl, child: RootScrean()));
   }
 }
