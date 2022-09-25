@@ -22,6 +22,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
+          snackBarTheme: SnackBarThemeData(
+              contentTextStyle: defualtTextStyle.apply(color: Colors.white)),
           textTheme: TextTheme(
               titleMedium: defualtTextStyle.apply(
                   color: LightThemeColors.secondaryTextColor),
