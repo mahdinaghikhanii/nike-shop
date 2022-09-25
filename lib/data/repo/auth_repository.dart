@@ -16,7 +16,9 @@ class AuthRepository implements IAuthRepository {
   static final ValueNotifier<AuthInfo?> authChangeNotifier =
       ValueNotifier(null);
   final IAuthDataSource dataSource;
-  AuthRepository(this.dataSource);
+  AuthRepository(
+    this.dataSource,
+  );
   @override
   Future<void> login(String username, String password) async {
     final AuthInfo authInfo = await dataSource.login(username, password);
@@ -37,7 +39,8 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<void> refReshToken() async {
-    final AuthInfo authInfo = await dataSource.refreshToken("s");
+    final AuthInfo authInfo = await dataSource.refreshToken(
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjAyYmE1NjVmNGZlYWVmNmIzMDQwZmE3NmU4ZTVlZjQzZTg1YjdkYjM3ZDFjMzBkNDEzM2ViNDFiYjk4N2Zk…");
     _persisAuthTokens(authInfo);
   }
 
