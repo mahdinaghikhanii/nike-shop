@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'data/repo/auth_repository.dart';
-import 'ui/auth/auth.dart';
-import 'ui/root.dart';
 
+import 'data/repo/auth_repository.dart';
 import 'theme.dart';
+import 'ui/root.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

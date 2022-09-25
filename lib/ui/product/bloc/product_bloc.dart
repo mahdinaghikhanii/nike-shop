@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../common/exceptions.dart';
 import '../../../data/repo/cart_repository.dart';
 
