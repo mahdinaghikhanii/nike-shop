@@ -1,6 +1,6 @@
 import '../../common/http_client.dart';
 import '../entity/cart_item.dart';
-import '../entity/cart_response.dart';
+import '../entity/add_to_cart_respone.dart';
 import '../source/cart_data_source.dart';
 
 abstract class ICartRepository extends ICartDataSource {}
@@ -11,12 +11,12 @@ class CartRepository implements ICartRepository {
   ICartDataSource iCartDataSource;
   CartRepository(this.iCartDataSource);
   @override
-  Future<CartResponse> addToCart(int productId) {
+  Future<AddToCartResponse> addToCart(int productId) {
     return iCartDataSource.addToCart(productId);
   }
 
   @override
-  Future<CartResponse> changeCount(int cartItemId) {
+  Future<AddToCartResponse> changeCount(int cartItemId) {
     return iCartDataSource.changeCount(cartItemId);
   }
 
@@ -31,7 +31,5 @@ class CartRepository implements ICartRepository {
   }
 
   @override
-  Future<List<CartIteamEntity>> getAll() {
-    throw UnimplementedError();
-  }
+  Future<List<CartIteamEntity>> getAll() => iCartDataSource.getAll();
 }
