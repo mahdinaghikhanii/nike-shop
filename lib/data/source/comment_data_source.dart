@@ -13,7 +13,7 @@ class CommentDataSource
   CommentDataSource(this.httpClint);
   @override
   Future<List<CommentEntity>> getAll({required int productId}) async {
-    final respone = await httpClint.get('comment/list?product_id=9');
+    final respone = await httpClint.get('comment/list?product_id=$productId');
     validateResponse(respone);
     final List<CommentEntity> comment = [];
     for (var jsonData in (respone.data as List)) {

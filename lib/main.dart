@@ -7,7 +7,6 @@ import 'ui/root.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   authRepository.laodAuthInfo();
-  print(authRepository.laodAuthInfo());
   runApp(const MyApp());
 }
 
