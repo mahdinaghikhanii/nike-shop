@@ -12,9 +12,9 @@ class CartIteamEntity {
 
   static List<CartIteamEntity> parseJsonArray(List<dynamic> jsonArray) {
     final List<CartIteamEntity> cartItems = [];
-    jsonArray.forEach((element) {
+    for (var element in jsonArray) {
       cartItems.add(CartIteamEntity.fromJson(element));
-    });
+    }
     return cartItems;
   }
 }

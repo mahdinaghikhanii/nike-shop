@@ -24,3 +24,5 @@ class CartError extends CartState {
   @override
   List<Object> get props => [exception];
 }
+
+class CartAuthReauired extends CartState {}

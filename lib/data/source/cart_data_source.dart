@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:nike/data/entity/cart_response.dart';
 
-import '../entity/cart_item.dart';
 import '../entity/add_to_cart_respone.dart';
 
 abstract class ICartDataSource {
