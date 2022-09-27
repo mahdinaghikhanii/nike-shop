@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nike/ui/root.dart';
 import '../../../common/exceptions.dart';
 import '../../../data/entity/auth_info.dart';
 import '../../../data/entity/cart_response.dart';
@@ -18,6 +19,25 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           emit(CartAuthReauired());
         } else {
           await loadCartItems(emit);
+        }
+      } else if (event is CartDeleteButtonClicked) {
+        try {
+          if (state is CartSuccess) {
+            final successState = (state as CartSuccess);
+            final cartItem = successState.cartResponse.cartItems
+                .firstWhere((element) => element.id == event.crtItemId);
+            cartItem.deleteButtonLoadig = true;
+            emit(successState);
+          }
+          await cartRepository.delete(event.crtItemId);
+          if (state is CartSuccess) {
+            final successState = (state as CartSuccess);
+            successState.cartResponse.cartItems
+                .removeWhere((element) => element.id == event.crtItemId);
+            emit(successState);
+          }
+        } catch (e) {
+          emit(CartError(AppException()));
         }
       } else if (event is CartAuthInfoChange) {
         if (event.authInfo == null || event.authInfo!.accessToken.isEmpty) {
