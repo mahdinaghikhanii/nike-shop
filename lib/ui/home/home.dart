@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../common/utils.dart';
 import '../../data/entity/product_model.dart';
-
 import '../../data/repo/baner_repository.dart';
 import '../../data/repo/product_repository.dart';
 import '../product/product.dart';
 import '../widgets/error.dart';
-import 'bloc/home_bloc.dart';
 import '../widgets/slider.dart';
+import 'bloc/home_bloc.dart';
 
 class HomeScrean extends StatelessWidget {
   const HomeScrean({super.key});

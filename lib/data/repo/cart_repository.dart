@@ -1,7 +1,6 @@
-import 'package:nike/data/entity/cart_response.dart';
-
 import '../../common/http_client.dart';
 import '../entity/add_to_cart_respone.dart';
+import '../entity/cart_response.dart';
 import '../source/cart_data_source.dart';
 
 abstract class ICartRepository extends ICartDataSource {}

@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nike/common/exceptions.dart';
-import 'package:nike/data/entity/auth_info.dart';
-import 'package:nike/data/entity/cart_response.dart';
-import 'package:nike/data/repo/cart_repository.dart';
+import '../../../common/exceptions.dart';
+import '../../../data/entity/auth_info.dart';
+import '../../../data/entity/cart_response.dart';
+import '../../../data/repo/cart_repository.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';

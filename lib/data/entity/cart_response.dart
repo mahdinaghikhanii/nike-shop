@@ -1,4 +1,4 @@
-import 'package:nike/data/entity/cart_item.dart';
+import 'cart_item.dart';
 
 class CartResponse {
   final List<CartIteamEntity> cartItems;

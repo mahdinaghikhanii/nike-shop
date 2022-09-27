@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../common/utils.dart';
-import 'image.dart';
 
+import '../../common/utils.dart';
 import '../../data/entity/baner_model.dart';
+import 'image.dart';
 
 class BannerSlider extends StatelessWidget {
   final PageController _pageController = PageController();

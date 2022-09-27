@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nike/common/utils.dart';
-import 'package:nike/data/repo/auth_repository.dart';
-import 'package:nike/data/repo/cart_repository.dart';
-import 'package:nike/ui/auth/auth.dart';
-import 'package:nike/ui/cart/bloc/cart_bloc.dart';
-import 'package:nike/ui/widgets/image.dart';
+import '../../common/utils.dart';
+import '../../data/repo/auth_repository.dart';
+import '../../data/repo/cart_repository.dart';
+import '../auth/auth.dart';
+import 'bloc/cart_bloc.dart';
+import '../widgets/image.dart';
 
 class CartScrean extends StatefulWidget {
   const CartScrean({super.key});

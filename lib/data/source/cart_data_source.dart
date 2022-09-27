@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:nike/data/entity/cart_response.dart';
+import '../entity/cart_response.dart';
 
 import '../entity/add_to_cart_respone.dart';
 

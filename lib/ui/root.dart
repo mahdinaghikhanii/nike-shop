@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nike/data/repo/auth_repository.dart';
+import '../data/repo/auth_repository.dart';
 import 'cart/cart.dart';
 import 'home/home.dart';
 
