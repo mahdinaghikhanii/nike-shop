@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:nike/data/entity/cart_response.dart';
 
 import '../entity/cart_item.dart';
 import '../entity/add_to_cart_respone.dart';
@@ -8,7 +9,7 @@ abstract class ICartDataSource {
   Future<AddToCartResponse> changeCount(int cartItemId);
   Future<void> delete(int cartItemId);
   Future<int> count();
-  Future<List<CartIteamEntity>> getAll();
+  Future<CartResponse> getAll();
 }
 
 class CartRemoteDataSource implements ICartDataSource {
@@ -39,7 +40,8 @@ class CartRemoteDataSource implements ICartDataSource {
   }
 
   @override
-  Future<List<CartIteamEntity>> getAll() {
-    throw UnimplementedError();
+  Future<CartResponse> getAll() async {
+    final respone = await httpClient.get('cart/list');
+    return CartResponse.fromJson(respone.data);
   }
 }

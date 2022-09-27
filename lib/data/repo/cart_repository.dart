@@ -1,5 +1,6 @@
+import 'package:nike/data/entity/cart_response.dart';
+
 import '../../common/http_client.dart';
-import '../entity/cart_item.dart';
 import '../entity/add_to_cart_respone.dart';
 import '../source/cart_data_source.dart';
 
@@ -31,5 +32,5 @@ class CartRepository implements ICartRepository {
   }
 
   @override
-  Future<List<CartIteamEntity>> getAll() => iCartDataSource.getAll();
+  Future<CartResponse> getAll() => iCartDataSource.getAll();
 }

@@ -6,6 +6,11 @@ class CartResponse {
   final int totalPrice;
   final int shippingCost;
 
-  CartResponse(
-      this.cartItems, this.payablePrice, this.totalPrice, this.shippingCost);
+  CartResponse.fromJson(Map<String, dynamic> json)
+      : cartItems = CartIteamEntity.parseJsonArray(
+          json['cart_items'],
+        ),
+        payablePrice = json['payable_price'],
+        totalPrice = json['total_price'],
+        shippingCost = json['shipping_cost'];
 }
