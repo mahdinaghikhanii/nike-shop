@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nike/common/utils.dart';
-import 'package:nike/data/entity/cart_item.dart';
-import 'package:nike/ui/widgets/image.dart';
+import '../../common/utils.dart';
+import '../../data/entity/cart_item.dart';
+import '../widgets/image.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem({
-    super.key,
-    required this.data,
-  });
+  const CartItem(
+      {super.key, required this.data, required this.onDeleteButtonClikec});
 
   final CartIteamEntity data;
+  final GestureTapCallback onDeleteButtonClikec;
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +89,13 @@ class CartItem extends StatelessWidget {
             ),
           ),
           const Divider(height: 1),
-          TextButton(onPressed: () {}, child: const Text('حذف از سبد خرید'))
+          data.deleteButtonLoadig
+              ? const SizedBox(
+                  height: 48,
+                  child: Center(child: CupertinoActivityIndicator()))
+              : TextButton(
+                  onPressed: onDeleteButtonClikec,
+                  child: const Text('حذف از سبد خرید'))
         ],
       ),
     );

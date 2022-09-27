@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import '../entity/cart_response.dart';
 
 import '../entity/add_to_cart_respone.dart';
+import '../entity/cart_response.dart';
 
 abstract class ICartDataSource {
   Future<AddToCartResponse> addToCart(int productId);
@@ -34,8 +34,8 @@ class CartRemoteDataSource implements ICartDataSource {
   }
 
   @override
-  Future<void> delete(int cartItemId) {
-    throw UnimplementedError();
+  Future<void> delete(int cartItemId) async {
+    await httpClient.post('cart/remove', data: {"cart_item_id": cartItemId});
   }
 
   @override

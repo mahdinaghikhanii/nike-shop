@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nike/data/entity/cart_item.dart';
-import 'package:nike/ui/cart/cart_item.dart';
+import '../../data/entity/cart_item.dart';
+import 'cart_item.dart';
 import '../../common/utils.dart';
 import '../../data/repo/auth_repository.dart';
 import '../../data/repo/cart_repository.dart';
@@ -65,7 +65,12 @@ class _CartScreanState extends State<CartScrean> {
                 itemCount: state.cartResponse.cartItems.length,
                 itemBuilder: ((context, index) {
                   final data = state.cartResponse.cartItems[index];
-                  return CartItem(data: data);
+                  return CartItem(
+                    data: data,
+                    onDeleteButtonClikec: () {
+                      cartBloc?.add(CartDeleteButtonClicked(data.id));
+                    },
+                  );
                 }));
           } else if (state is CartAuthReauired) {
             return SizedBox(
