@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../data/entity/cart_item.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:nike/ui/auth/auth.dart';
+import 'package:nike/ui/widgets/empty_state.dart';
+
 import 'cart_item.dart';
-import '../../common/utils.dart';
+
 import '../../data/repo/auth_repository.dart';
 import '../../data/repo/cart_repository.dart';
-import '../auth/auth.dart';
+
 import 'bloc/cart_bloc.dart';
-import '../widgets/image.dart';
 
 class CartScrean extends StatefulWidget {
   const CartScrean({super.key});
@@ -57,9 +59,11 @@ class _CartScreanState extends State<CartScrean> {
               child: CupertinoActivityIndicator(),
             );
           } else if (state is CartError) {
-            return Center(
-              child: Text(state.exception.message),
-            );
+            return EmptyView(
+                message: state.exception.message,
+                callToAction: ElevatedButton(
+                    onPressed: () {}, child: const Text('بازیابی')),
+                image: SvgPicture.asset("assets/img/not_data.svg"));
           } else if (state is CartSuccess) {
             return ListView.builder(
                 itemCount: state.cartResponse.cartItems.length,
@@ -72,23 +76,27 @@ class _CartScreanState extends State<CartScrean> {
                     },
                   );
                 }));
+          } else if (state is CartItemEmpty) {
+            return EmptyView(
+                message: "تا کنون هیج ایتمی به سبد خرید خود اضافه نکرده اید !",
+                callToAction: Container(),
+                image: SvgPicture.asset(
+                  'assets/img/empty_cart.svg',
+                  width: 200,
+                  height: 200,
+                ));
           } else if (state is CartAuthReauired) {
-            return SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("وارد حساب کاریری خود شوید"),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true).push(
-                            MaterialPageRoute(
-                                builder: (context) => const AuthScrean()));
-                      },
-                      child: const Text("ورود"))
-                ],
-              ),
+            return EmptyView(
+              callToAction: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                            builder: (context) => const AuthScrean()));
+                  },
+                  child: const Text('ورود به حساب کاربری')),
+              image:
+                  SvgPicture.asset("assets/img/auth_required.svg", height: 200),
+              message: "برای مشاهده سبد خرید ابتدا وارد حساب کاریری شوید",
             );
           } else {
             throw "current cart state is not valid";

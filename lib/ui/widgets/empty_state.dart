@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class EmotyView extends StatelessWidget {
+class EmptyView extends StatelessWidget {
   final String message;
   final Widget callToAction;
   final Widget image;
-  const EmotyView(
+  const EmptyView(
       {super.key,
       required this.message,
       required this.callToAction,
@@ -12,6 +12,22 @@ class EmotyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        image,
+        Padding(
+          padding:
+              const EdgeInsets.only(left: 32, right: 32, top: 24, bottom: 16),
+          child: Text(
+            message,
+            style: Theme.of(context).textTheme.titleLarge,
+            textAlign: TextAlign.center,
+          ),
+        ),
+        callToAction,
+      ],
+    );
   }
 }

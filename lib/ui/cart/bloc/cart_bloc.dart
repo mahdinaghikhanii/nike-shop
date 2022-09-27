@@ -27,19 +27,18 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             final cartItem = successState.cartResponse.cartItems
                 .firstWhere((element) => element.id == event.crtItemId);
             cartItem.deleteButtonLoadig = true;
-            if (successState.cartResponse.cartItems.isEmpty) {
-              emit(CartEmpty());
-            }
-
-            emit(successState);
-            emit(CartSuccess(successState.cartResponse));
           }
           await cartRepository.delete(event.crtItemId);
           if (state is CartSuccess) {
             final successState = (state as CartSuccess);
             successState.cartResponse.cartItems
                 .removeWhere((element) => element.id == event.crtItemId);
-            emit(CartSuccess(successState.cartResponse));
+
+            if (successState.cartResponse.cartItems.isEmpty) {
+              emit(CartItemEmpty());
+            } else {
+              emit(CartSuccess(successState.cartResponse));
+            }
           }
         } catch (e) {
           emit(CartError(AppException()));
@@ -59,7 +58,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     try {
       emit(CartLoading());
       final result = await cartRepository.getAll();
-      emit(CartSuccess(result));
+      if (result.cartItems.isEmpty) {
+        emit(CartItemEmpty());
+      } else {
+        emit(CartSuccess(result));
+      }
     } catch (e) {
       emit(CartError(AppException()));
     }

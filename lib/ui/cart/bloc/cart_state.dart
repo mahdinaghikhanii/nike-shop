@@ -18,4 +18,4 @@ class CartError extends CartState {
 
 class CartAuthReauired extends CartState {}
 
-class CartEmpty extends CartState {}
+class CartItemEmpty extends CartState {}
