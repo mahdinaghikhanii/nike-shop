@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:nike/ui/auth/auth.dart';
-import 'package:nike/ui/widgets/empty_state.dart';
+import '../auth/auth.dart';
+import '../widgets/empty_state.dart';
 
 import 'cart_item.dart';
 

@@ -13,8 +13,6 @@ class HomeError extends HomeState {
   final AppException exception;
   const HomeError({required this.exception});
 
-  // props in komako mikone age error rokhdad shabih hamon eror ghabli bod dashighan
-  // nemizare dobare safe load beshe va perfomance appliaction bala mire
   @override
   List<Object> get props => [exception];
 }

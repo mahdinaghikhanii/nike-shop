@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:nike/ui/widgets/empty_state.dart';
 
 import '../../common/utils.dart';
 import '../../data/entity/product_model.dart';
@@ -62,10 +64,18 @@ class HomeScrean extends StatelessWidget {
               } else if (state is HomeLoading) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is HomeError) {
-                return AppErrorWidget(
-                    appException: state.exception,
-                    ontap: () =>
-                        BlocProvider.of<HomeBloc>(context).add(HomeRefresh()));
+                return Center(
+                  child: EmptyView(
+                      message: state.exception.message,
+                      callToAction: ElevatedButton(
+                          onPressed: () {
+                            BlocProvider.of<HomeBloc>(context)
+                                .add(HomeRefresh());
+                          },
+                          child: const Text("بارگزاری")),
+                      image: SvgPicture.asset("assets/img/no_data.svg",
+                          width: 200)),
+                );
               } else {
                 throw Exception("state is not supported");
               }
