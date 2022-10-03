@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:nike/data/entity/auth_info.dart';
+import 'package:nike/ui/cart/price_info.dart';
+
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../auth/auth.dart';
 import '../widgets/empty_state.dart';
@@ -76,11 +77,17 @@ class _CartScreanState extends State<CartScrean> {
               child: CupertinoActivityIndicator(),
             );
           } else if (state is CartError) {
-            return EmptyView(
-                message: state.exception.message,
-                callToAction: ElevatedButton(
-                    onPressed: () {}, child: const Text('بازیابی')),
-                image: SvgPicture.asset("assets/img/not_data.svg"));
+            return Center(
+              child: EmptyView(
+                  message: state.exception.message,
+                  callToAction: ElevatedButton(
+                      onPressed: () {}, child: const Text('بازیابی')),
+                  image: SvgPicture.asset(
+                    "assets/img/no_data.svg",
+                    width: 200,
+                    height: 200,
+                  )),
+            );
           } else if (state is CartSuccess) {
             return SmartRefresher(
               controller: _refreshController,
@@ -98,16 +105,27 @@ class _CartScreanState extends State<CartScrean> {
                     isRefreshing: true));
               },
               child: ListView.builder(
-                  itemCount: state.cartResponse.cartItems.length,
-                  itemBuilder: ((context, index) {
+                itemBuilder: ((context, index) {
+                  if (index < state.cartResponse.cartItems.length) {
                     final data = state.cartResponse.cartItems[index];
                     return CartItem(
                       data: data,
                       onDeleteButtonClikec: () {
-                        cartBloc?.add(CartDeleteButtonClicked(data.id));
+                        cartBloc?.add(CartDeleteButtonClicked(
+                          data.id,
+                        ));
                       },
                     );
-                  })),
+                  } else {
+                    return PriceInfo(
+                      payablePrice: state.cartResponse.payablePrice,
+                      shippingCost: state.cartResponse.shippingCost,
+                      totalPrice: state.cartResponse.totalPrice,
+                    );
+                  }
+                }),
+                itemCount: state.cartResponse.cartItems.length + 1,
+              ),
             );
           } else if (state is CartItemEmpty) {
             return EmptyView(
@@ -135,43 +153,6 @@ class _CartScreanState extends State<CartScrean> {
             throw "current cart state is not valid";
           }
         }))),
-        // body: ValueListenableBuilder(
-        //   valueListenable: AuthRepository.authChangeNotifier,
-        //   builder: (BuildContext context, authState, Widget? child) {
-        //     bool isAuthenticated =
-        //         authState != null && authState.accessToken.isNotEmpty;
-        //     return SizedBox(
-        //       width: MediaQuery.of(context).size.width,
-        //       child: Column(
-        //         crossAxisAlignment: CrossAxisAlignment.center,
-        //         mainAxisAlignment: MainAxisAlignment.center,
-        //         children: [
-        //           Text(isAuthenticated
-        //               ? 'خوش امدید'
-        //               : "لطفا وارد حساب کاریری خود شوید"),
-        //           isAuthenticated
-        //               ? ElevatedButton(
-        //                   onPressed: () {
-        //                     authRepository.signOut();
-        //                   },
-        //                   child: const Text('خروج'))
-        //               : ElevatedButton(
-        //                   onPressed: () {
-        //                     Navigator.of(context, rootNavigator: true).push(
-        //                         MaterialPageRoute(
-        //                             builder: (context) => const AuthScrean()));
-        //                   },
-        //                   child: const Text('ورود')),
-        //           ElevatedButton(
-        //               onPressed: () async {
-        //                 await authRepository.refReshToken();
-        //               },
-        //               child: const Text('reafresh Token'))
-        //         ],
-        //       ),
-        //     );
-        //   },
-        // ),
       ),
     );
   }

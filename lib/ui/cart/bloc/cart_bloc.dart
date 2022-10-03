@@ -28,7 +28,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             final cartItem = successState.cartResponse.cartItems
                 .firstWhere((element) => element.id == event.crtItemId);
             cartItem.deleteButtonLoadig = true;
+            emit(CartSuccess(successState.cartResponse));
           }
+
           await cartRepository.delete(event.crtItemId);
           if (state is CartSuccess) {
             final successState = (state as CartSuccess);
@@ -38,7 +40,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             if (successState.cartResponse.cartItems.isEmpty) {
               emit(CartItemEmpty());
             } else {
-              emit(CartSuccess(successState.cartResponse));
+              emit(calculatePriceInfo(successState.cartResponse));
             }
           }
         } catch (e) {
@@ -69,5 +71,22 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     } catch (e) {
       emit(CartError(AppException()));
     }
+  }
+
+  CartSuccess calculatePriceInfo(CartResponse cartResponse) {
+    int totalPrice = 0;
+    int payablePrice = 0;
+    int shipingCost = 0;
+    for (var element in cartResponse.cartItems) {
+      totalPrice += element.product.previousPrice * element.count;
+      payablePrice += element.product.price * element.count;
+    }
+    shipingCost = payablePrice >= 250000 ? 0 : 30000;
+
+    cartResponse.totalPrice = totalPrice;
+    cartResponse.payablePrice = payablePrice;
+    cartResponse.shippingCost = shipingCost;
+
+    return CartSuccess(cartResponse);
   }
 }

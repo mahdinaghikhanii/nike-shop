@@ -2,9 +2,9 @@ import 'cart_item.dart';
 
 class CartResponse {
   final List<CartIteamEntity> cartItems;
-  final int payablePrice;
-  final int totalPrice;
-  final int shippingCost;
+  int payablePrice;
+  int totalPrice;
+  int shippingCost;
 
   CartResponse.fromJson(Map<String, dynamic> json)
       : cartItems = CartIteamEntity.parseJsonArray(
