@@ -64,6 +64,8 @@ class _CartScreanState extends State<CartScrean> {
               if (state is CartSuccess) {
                 _refreshController.refreshCompleted();
               }
+            } else if (state is CartError) {
+              _refreshController.refreshFailed();
             }
           });
           bloc.add(CartStarted(AuthRepository.authChangeNotifier.value));
@@ -82,6 +84,14 @@ class _CartScreanState extends State<CartScrean> {
           } else if (state is CartSuccess) {
             return SmartRefresher(
               controller: _refreshController,
+              header: const ClassicHeader(
+                completeText: "با موفقیت انجام شد",
+                refreshingText: "در حال به روز رسانی",
+                idleText: "برای به روز رسانی پایین بکشید",
+                releaseText: "رها کنید",
+                failedText: "خطای نا مشخص",
+                spacing: 2,
+              ),
               onRefresh: () {
                 cartBloc?.add(CartStarted(
                     AuthRepository.authChangeNotifier.value,
