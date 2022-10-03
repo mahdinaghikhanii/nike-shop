@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nike/data/entity/auth_info.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../auth/auth.dart';
 import '../widgets/empty_state.dart';
 
@@ -20,7 +24,10 @@ class CartScrean extends StatefulWidget {
 }
 
 class _CartScreanState extends State<CartScrean> {
+  final RefreshController _refreshController = RefreshController();
   CartBloc? cartBloc;
+  StreamSubscription? stateStreamSubscription;
+
   @override
   void initState() {
     super.initState();
@@ -36,6 +43,7 @@ class _CartScreanState extends State<CartScrean> {
     AuthRepository.authChangeNotifier
         .removeListener(authChangeNotifierListener);
     cartBloc!.close();
+    stateStreamSubscription?.cancel();
     super.dispose();
   }
 
@@ -51,6 +59,13 @@ class _CartScreanState extends State<CartScrean> {
         body: BlocProvider<CartBloc>(create: (context) {
           final bloc = CartBloc(cartRepository);
           cartBloc = bloc;
+          stateStreamSubscription = bloc.stream.listen((state) {
+            if (_refreshController.isRefresh) {
+              if (state is CartSuccess) {
+                _refreshController.refreshCompleted();
+              }
+            }
+          });
           bloc.add(CartStarted(AuthRepository.authChangeNotifier.value));
           return bloc;
         }, child: BlocBuilder<CartBloc, CartState>(builder: ((context, state) {
@@ -65,17 +80,25 @@ class _CartScreanState extends State<CartScrean> {
                     onPressed: () {}, child: const Text('بازیابی')),
                 image: SvgPicture.asset("assets/img/not_data.svg"));
           } else if (state is CartSuccess) {
-            return ListView.builder(
-                itemCount: state.cartResponse.cartItems.length,
-                itemBuilder: ((context, index) {
-                  final data = state.cartResponse.cartItems[index];
-                  return CartItem(
-                    data: data,
-                    onDeleteButtonClikec: () {
-                      cartBloc?.add(CartDeleteButtonClicked(data.id));
-                    },
-                  );
-                }));
+            return SmartRefresher(
+              controller: _refreshController,
+              onRefresh: () {
+                cartBloc?.add(CartStarted(
+                    AuthRepository.authChangeNotifier.value,
+                    isRefreshing: true));
+              },
+              child: ListView.builder(
+                  itemCount: state.cartResponse.cartItems.length,
+                  itemBuilder: ((context, index) {
+                    final data = state.cartResponse.cartItems[index];
+                    return CartItem(
+                      data: data,
+                      onDeleteButtonClikec: () {
+                        cartBloc?.add(CartDeleteButtonClicked(data.id));
+                      },
+                    );
+                  })),
+            );
           } else if (state is CartItemEmpty) {
             return EmptyView(
                 message: "تا کنون هیج ایتمی به سبد خرید خود اضافه نکرده اید !",

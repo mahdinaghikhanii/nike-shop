@@ -8,7 +8,6 @@ import '../../data/entity/product_model.dart';
 import '../../data/repo/baner_repository.dart';
 import '../../data/repo/product_repository.dart';
 import '../product/product.dart';
-import '../widgets/error.dart';
 import '../widgets/slider.dart';
 import 'bloc/home_bloc.dart';
 

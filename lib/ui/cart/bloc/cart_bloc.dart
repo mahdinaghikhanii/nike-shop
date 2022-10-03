@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../root.dart';
 import '../../../common/exceptions.dart';
@@ -18,7 +19,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         if (authInfo == null || authInfo.accessToken.isEmpty) {
           emit(CartAuthReauired());
         } else {
-          await loadCartItems(emit);
+          await loadCartItems(emit, event.isRefreshing);
         }
       } else if (event is CartDeleteButtonClicked) {
         try {
@@ -48,15 +49,17 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           emit(CartAuthReauired());
         } else {
           if (state is CartAuthReauired) {
-            await loadCartItems(emit);
+            await loadCartItems(emit, false);
           }
         }
       }
     });
   }
-  Future<void> loadCartItems(Emitter<CartState> emit) async {
+  Future<void> loadCartItems(Emitter<CartState> emit, bool isRefreshing) async {
     try {
-      emit(CartLoading());
+      if (!isRefreshing) {
+        emit(CartLoading());
+      }
       final result = await cartRepository.getAll();
       if (result.cartItems.isEmpty) {
         emit(CartItemEmpty());
