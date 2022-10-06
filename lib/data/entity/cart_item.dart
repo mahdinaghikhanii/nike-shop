@@ -5,6 +5,7 @@ class CartIteamEntity {
   final int id;
   final int count;
   bool deleteButtonLoadig = false;
+  bool changeCountLoading = false;
 
   CartIteamEntity.fromJson(Map<String, dynamic> json)
       : product = ProductEntity.fromJson(json['product']),

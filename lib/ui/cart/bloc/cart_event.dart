@@ -27,3 +27,20 @@ class CartAuthInfoChange extends CartEvent {
   final AuthInfo? authInfo;
   const CartAuthInfoChange(this.authInfo);
 }
+
+class IncreaseCountButtonClick extends CartEvent {
+  final int cartItemId;
+
+  const IncreaseCountButtonClick(this.cartItemId);
+
+  @override
+  List<Object> get props => [cartItemId];
+}
+
+class DecreaseCountButtonClick extends CartEvent {
+  final int cartItemId;
+  const DecreaseCountButtonClick(this.cartItemId);
+
+  @override
+  List<Object> get props => [cartItemId];
+}

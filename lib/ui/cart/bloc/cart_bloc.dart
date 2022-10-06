@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nike/data/common/constans.dart';
 import '../../root.dart';
 import '../../../common/exceptions.dart';
 import '../../../data/entity/auth_info.dart';
@@ -53,6 +55,31 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           if (state is CartAuthReauired) {
             await loadCartItems(emit, false);
           }
+        }
+      } else if (event is IncreaseCountButtonClick) {
+        try {
+          if (state is CartSuccess) {
+            final successState = (state as CartSuccess);
+            final cartItem = successState.cartResponse.cartItems
+                .firstWhere((element) => element.id == event.cartItemId);
+            cartItem.changeCountLoading = true;
+            emit(CartSuccess(successState.cartResponse));
+
+            //   await cartRepository.changeCount(event.cartItemId,successState.cartResponse.cartItems[index].count + 1);
+            if (state is CartSuccess) {
+              final successState = (state as CartSuccess);
+              successState.cartResponse.cartItems
+                  .removeWhere((element) => element.id == event.cartItemId);
+
+              if (successState.cartResponse.cartItems.isEmpty) {
+                emit(CartItemEmpty());
+              } else {
+                emit(calculatePriceInfo(successState.cartResponse));
+              }
+            }
+          }
+        } catch (e) {
+          emit(CartError(AppException()));
         }
       }
     });
