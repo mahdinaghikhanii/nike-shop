@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nike/ui/widgets/badge.dart';
 import '../data/repo/auth_repository.dart';
 import 'cart/cart.dart';
 import 'home/home.dart';
@@ -74,12 +75,19 @@ class _RootScreanState extends State<RootScrean> {
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
-            items: const [
-              BottomNavigationBarItem(
+            items: [
+              const BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.home), label: "خانه"),
               BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.cart), label: "سبد خرید"),
-              BottomNavigationBarItem(
+                  icon: Stack(
+                    clipBehavior: Clip.none,
+                    children: const [
+                      Icon(CupertinoIcons.cart),
+                      Positioned(right: -10, child: Badge(value: 2))
+                    ],
+                  ),
+                  label: "سبد خرید"),
+              const BottomNavigationBarItem(
                   icon: Icon(CupertinoIcons.person), label: "پروفایل"),
             ],
             currentIndex: selectedScreenIndex,
