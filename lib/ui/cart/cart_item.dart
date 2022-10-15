@@ -7,10 +7,16 @@ import '../widgets/image.dart';
 
 class CartItem extends StatelessWidget {
   const CartItem(
-      {super.key, required this.data, required this.onDeleteButtonClikec});
+      {super.key,
+      required this.data,
+      required this.onDeleteButtonClikec,
+      required this.onInreateButtonClick,
+      required this.onDecreaseButtonClick});
 
   final CartIteamEntity data;
   final GestureTapCallback onDeleteButtonClikec;
+  final GestureTapCallback onInreateButtonClick;
+  final GestureTapCallback onDecreaseButtonClick;
 
   @override
   Widget build(BuildContext context) {
@@ -60,14 +66,16 @@ class CartItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                            onPressed: () {},
+                            onPressed: onInreateButtonClick,
                             icon: const Icon(CupertinoIcons.plus_rectangle)),
-                        Text(
-                          data.count.toString(),
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
+                        data.changeCountLoading
+                            ? const CupertinoActivityIndicator()
+                            : Text(
+                                data.count.toString(),
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: onDecreaseButtonClick,
                             icon: const Icon(CupertinoIcons.minus_rectangle)),
                       ],
                     ),

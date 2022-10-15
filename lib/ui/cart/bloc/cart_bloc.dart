@@ -1,8 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nike/data/common/constans.dart';
+
 import '../../root.dart';
 import '../../../common/exceptions.dart';
 import '../../../data/entity/auth_info.dart';
@@ -56,27 +55,35 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             await loadCartItems(emit, false);
           }
         }
-      } else if (event is IncreaseCountButtonClick) {
+      } else if (event is IncreaseCountButtonClick ||
+          event is DecreaseCountButtonClick) {
         try {
+          int cartItemId = 0;
+          if (event is IncreaseCountButtonClick) {
+            cartItemId = event.cartItemId;
+          } else if (event is DecreaseCountButtonClick) {
+            cartItemId = event.cartItemId;
+          }
+
           if (state is CartSuccess) {
             final successState = (state as CartSuccess);
-            final cartItem = successState.cartResponse.cartItems
-                .firstWhere((element) => element.id == event.cartItemId);
-            cartItem.changeCountLoading = true;
+            final index = successState.cartResponse.cartItems
+                .indexWhere((element) => element.id == cartItemId);
+            successState.cartResponse.cartItems[index].changeCountLoading =
+                true;
             emit(CartSuccess(successState.cartResponse));
+            await Future.delayed(const Duration(milliseconds: 2000));
+            final newCount = event is IncreaseCountButtonClick
+                ? ++successState.cartResponse.cartItems[index].count
+                : --successState.cartResponse.cartItems[index].count;
 
-            //   await cartRepository.changeCount(event.cartItemId,successState.cartResponse.cartItems[index].count + 1);
-            if (state is CartSuccess) {
-              final successState = (state as CartSuccess);
-              successState.cartResponse.cartItems
-                  .removeWhere((element) => element.id == event.cartItemId);
+            await cartRepository.changeCount(cartItemId, newCount);
 
-              if (successState.cartResponse.cartItems.isEmpty) {
-                emit(CartItemEmpty());
-              } else {
-                emit(calculatePriceInfo(successState.cartResponse));
-              }
-            }
+            successState.cartResponse.cartItems
+                .firstWhere((element) => element.id == cartItemId)
+              ..count = newCount
+              ..changeCountLoading = false;
+            emit(calculatePriceInfo(successState.cartResponse));
           }
         } catch (e) {
           emit(CartError(AppException()));

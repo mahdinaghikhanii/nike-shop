@@ -3,7 +3,7 @@ import 'product_model.dart';
 class CartIteamEntity {
   final ProductEntity product;
   final int id;
-  final int count;
+  int count;
   bool deleteButtonLoadig = false;
   bool changeCountLoading = false;
 

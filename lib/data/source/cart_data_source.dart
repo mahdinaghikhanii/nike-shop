@@ -5,7 +5,7 @@ import '../entity/cart_response.dart';
 
 abstract class ICartDataSource {
   Future<AddToCartResponse> addToCart(int productId);
-  Future<AddToCartResponse> changeCount(int cartItemId);
+  Future<AddToCartResponse> changeCount(int cartItemId, int count);
   Future<void> delete(int cartItemId);
   Future<int> count();
   Future<CartResponse> getAll();
@@ -24,8 +24,12 @@ class CartRemoteDataSource implements ICartDataSource {
   }
 
   @override
-  Future<AddToCartResponse> changeCount(int cartItemId) {
-    throw UnimplementedError();
+  Future<AddToCartResponse> changeCount(int cartItemId, int count) async {
+    final respone = await httpClient.post('cart/changeCount', data: {
+      "cart_item_id": cartItemId,
+      "count": count,
+    });
+    return AddToCartResponse.fromJson(respone.data);
   }
 
   @override

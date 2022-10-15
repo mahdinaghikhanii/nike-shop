@@ -115,6 +115,14 @@ class _CartScreanState extends State<CartScrean> {
                           data.id,
                         ));
                       },
+                      onDecreaseButtonClick: () {
+                        if (data.count > 1) {
+                          cartBloc?.add(DecreaseCountButtonClick(data.id));
+                        }
+                      },
+                      onInreateButtonClick: () {
+                        cartBloc?.add(IncreaseCountButtonClick(data.id));
+                      },
                     );
                   } else {
                     return PriceInfo(
