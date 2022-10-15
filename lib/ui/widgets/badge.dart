@@ -6,16 +6,20 @@ class Badge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 18,
-      height: 18,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          shape: BoxShape.circle, color: Theme.of(context).colorScheme.primary),
-      child: Text(
-        value.toString(),
-        style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary, fontSize: 12),
+    return Visibility(
+      visible: value > 0,
+      child: Container(
+        width: 18,
+        height: 18,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Theme.of(context).colorScheme.primary),
+        child: Text(
+          value.toString(),
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary, fontSize: 12),
+        ),
       ),
     );
   }

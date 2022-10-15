@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../../common/http_client.dart';
 import '../entity/add_to_cart_respone.dart';
 import '../entity/cart_response.dart';
@@ -8,7 +10,8 @@ abstract class ICartRepository extends ICartDataSource {}
 final cartRepository = CartRepository(CartRemoteDataSource(httpClint));
 
 class CartRepository implements ICartRepository {
-  ICartDataSource iCartDataSource;
+  final ICartDataSource iCartDataSource;
+  static ValueNotifier<int> cartItemCountNotifier = ValueNotifier(0);
   CartRepository(this.iCartDataSource);
   @override
   Future<AddToCartResponse> addToCart(int productId) {
@@ -21,8 +24,10 @@ class CartRepository implements ICartRepository {
   }
 
   @override
-  Future<int> count() {
-    throw UnimplementedError();
+  Future<int> count() async {
+    final count = await iCartDataSource.count();
+    cartItemCountNotifier.value = count;
+    return count;
   }
 
   @override

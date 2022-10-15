@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nike/data/repo/cart_repository.dart';
 import 'package:nike/ui/widgets/badge.dart';
 import '../data/repo/auth_repository.dart';
 import 'cart/cart.dart';
@@ -81,9 +82,17 @@ class _RootScreanState extends State<RootScrean> {
               BottomNavigationBarItem(
                   icon: Stack(
                     clipBehavior: Clip.none,
-                    children: const [
-                      Icon(CupertinoIcons.cart),
-                      Positioned(right: -10, child: Badge(value: 2))
+                    children: [
+                      const Icon(CupertinoIcons.cart),
+                      Positioned(
+                          right: -10,
+                          child: ValueListenableBuilder<int>(
+                              valueListenable:
+                                  CartRepository.cartItemCountNotifier,
+                              builder: ((context, value, child) {
+                                print(value);
+                                return Badge(value: value);
+                              })))
                     ],
                   ),
                   label: "سبد خرید"),
@@ -108,5 +117,12 @@ class _RootScreanState extends State<RootScrean> {
             onGenerateRoute: (settings) => MaterialPageRoute(
                 builder: (context) => Offstage(
                     offstage: selectedScreenIndex != index, child: child)));
+  }
+
+  @override
+  void initState() {
+    cartRepository.count();
+
+    super.initState();
   }
 }
