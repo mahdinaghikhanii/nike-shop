@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nike/common/utils.dart';
+
+import '../../common/utils.dart';
 
 class PriceInfo extends StatelessWidget {
   final int payablePrice;

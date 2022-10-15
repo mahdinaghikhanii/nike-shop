@@ -1,12 +1,11 @@
 import 'package:equatable/equatable.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../root.dart';
 import '../../../common/exceptions.dart';
 import '../../../data/entity/auth_info.dart';
 import '../../../data/entity/cart_response.dart';
 import '../../../data/repo/cart_repository.dart';
+import '../../root.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
@@ -29,10 +28,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             final cartItem = successState.cartResponse.cartItems
                 .firstWhere((element) => element.id == event.crtItemId);
             cartItem.deleteButtonLoadig = true;
+
             emit(CartSuccess(successState.cartResponse));
           }
 
           await cartRepository.delete(event.crtItemId);
+          await cartRepository.count();
           if (state is CartSuccess) {
             final successState = (state as CartSuccess);
             successState.cartResponse.cartItems
@@ -71,6 +72,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
                 .indexWhere((element) => element.id == cartItemId);
             successState.cartResponse.cartItems[index].changeCountLoading =
                 true;
+
             emit(CartSuccess(successState.cartResponse));
             await Future.delayed(const Duration(milliseconds: 2000));
             final newCount = event is IncreaseCountButtonClick

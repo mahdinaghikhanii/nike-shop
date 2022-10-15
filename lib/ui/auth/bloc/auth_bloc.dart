@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nike/data/repo/cart_repository.dart';
 
 import '../../../common/exceptions.dart';
 import '../../../data/repo/auth_repository.dart';
@@ -18,6 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthLoading(isLoginMode));
           if (isLoginMode) {
             await authRepository.login(event.userName, event.password);
+            await cartRepository.count();
             emit(AuthSuccess(isLoginMode));
           } else {
             await authRepository.signUp(event.userName, event.password);

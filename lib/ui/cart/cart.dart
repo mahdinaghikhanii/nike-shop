@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:nike/ui/cart/price_info.dart';
+import 'price_info.dart';
 
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../auth/auth.dart';
