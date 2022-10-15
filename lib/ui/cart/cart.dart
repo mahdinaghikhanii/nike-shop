@@ -28,6 +28,7 @@ class _CartScreanState extends State<CartScrean> {
   final RefreshController _refreshController = RefreshController();
   CartBloc? cartBloc;
   StreamSubscription? stateStreamSubscription;
+  bool stateIsSuccess = false;
 
   @override
   void initState() {
@@ -57,10 +58,25 @@ class _CartScreanState extends State<CartScrean> {
           centerTitle: true,
           title: const Text('سبد خرید'),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Visibility(
+          visible: stateIsSuccess,
+          child: Container(
+            margin: const EdgeInsets.only(left: 48, right: 48),
+            width: MediaQuery.of(context).size.width,
+            child: FloatingActionButton.extended(
+                onPressed: () {}, label: const Text("پرداخت")),
+          ),
+        ),
         body: BlocProvider<CartBloc>(create: (context) {
           final bloc = CartBloc(cartRepository);
           cartBloc = bloc;
+
           stateStreamSubscription = bloc.stream.listen((state) {
+            setState(() {
+              stateIsSuccess = state is CartSuccess;
+            });
+
             if (_refreshController.isRefresh) {
               if (state is CartSuccess) {
                 _refreshController.refreshCompleted();
@@ -105,6 +121,7 @@ class _CartScreanState extends State<CartScrean> {
                     isRefreshing: true));
               },
               child: ListView.builder(
+                padding: const EdgeInsets.only(bottom: 80),
                 itemBuilder: ((context, index) {
                   if (index < state.cartResponse.cartItems.length) {
                     final data = state.cartResponse.cartItems[index];

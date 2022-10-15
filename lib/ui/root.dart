@@ -91,7 +91,6 @@ class _RootScreanState extends State<RootScrean> {
                               valueListenable:
                                   CartRepository.cartItemCountNotifier,
                               builder: ((context, value, child) {
-                                print(value);
                                 return Badge(value: value);
                               })))
                     ],
