@@ -31,6 +31,7 @@ class _ProductDetailscreenState extends State<ProductDetailscreen> {
 
   @override
   Widget build(BuildContext context) {
+    // check out
     return Directionality(
       textDirection: TextDirection.rtl,
       child: BlocProvider<ProductBloc>(
